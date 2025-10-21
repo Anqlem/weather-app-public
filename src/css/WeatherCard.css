@@ -1,0 +1,120 @@
+.container{
+    position: relative;
+    width: 632px;
+    height: 616px;
+    border-radius: 8px;
+    background-size: cover;
+    
+}
+
+.weather{
+    position: absolute;
+    font-size: 96px;
+    font-weight:800 ;
+    line-height: 100%;
+    bottom: 32px;
+    left: 32px;
+    display: inline-flex;
+    padding: 4px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+}
+/*------------------------------INFO------------------------------*/
+.info{
+    display: flex;
+    padding: 32px;
+    justify-content: space-between;
+    
+}
+
+.locationDate{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+/*------------------------------INFO------------------------------*/
+
+.location{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 140%;
+}
+
+.time{
+    font-size: 20px;
+    line-height: 140%;
+    font-weight: bold;
+}
+
+.date{
+    font-size: 16px;
+    text-align: left;
+    line-height: 140%;
+}
+
+
+.feelsTemp{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 140%;
+}
+
+.forecast{
+    font-size:20px;
+    line-height: 140%;
+    font-weight: normal;
+}
+
+.devider{
+    padding: 0px 8px 2px 8px;
+}
+
+.weather-icon-container{
+    position: absolute;
+    top: 368px;
+    left: 384px;
+}
+
+.icon{
+    position: relative;
+    width: 248px;
+    height: 248px;
+    }
+
+    @media (max-width: 768px){
+        .container{
+            height: 304px;
+            width: 342px;
+        }
+
+        .weather{
+            font-size: 48px;
+            line-height: 120%;
+            text-align: right;
+            display: inline-flex;
+            gap: 8px;
+        }
+
+        .devider{
+            display:none;
+        }
+
+        .feelsTemp{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .icon{
+            width: 160px;
+            height: 160px;
+        }
+
+        .weather-icon-container{
+            top: 144px;
+            left: 175px;    
+        }
+    }
