@@ -2,6 +2,8 @@
 
 A modern, responsive weather application built with React that provides real-time weather information for locations worldwide. The app features a clean, intuitive interface based on the TypeWeather Figma design.
 
+Deployed app -  https://mikhail-weather-app.vercel.app/
+
 ## Features
 
 - 🌍 **Location Search**: Intelligent location search powered by Google Places Autocomplete API
