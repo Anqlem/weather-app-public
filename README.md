@@ -40,10 +40,10 @@ cd weather-app-public
 npm install
 ```
 
-3. Create a `.env` file in the root directory and add your API keys:
+3. Edit a `.env` file in the root directory and add your API keys:
 ```env
-REACT_APP_GOOGLE_API_KEY=your_google_api_key
-REACT_APP_OPENWEATHER_API_KEY=your_openweather_api_key
+REACT_APP_GOOGLE_MAPS_API_KEY=your_google_api_key
+REACT_APP_WEATHER_API_KEY=your_openweather_api_key
 ```
 
 4. Start the development server:
@@ -77,10 +77,6 @@ The app will open at [http://localhost:3000](http://localhost:3000)
 ## Design
 
 This project implements the [TypeWeather Figma design](https://www.figma.com/community/file/1264768570663183670), providing a modern and user-friendly weather interface.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
