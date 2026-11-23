@@ -1,100 +1,113 @@
-# weather-app
+# Weather App
 
-A React frontend backed by a Java/Spring Boot backend (`./backend`) that proxies OpenWeatherMap
-and Google Places so API keys stay server-side. See `backend/README.md` for backend setup.
+A modern, responsive weather application that provides real-time weather information for
+locations worldwide. The app features a clean, intuitive interface based on the TypeWeather
+Figma design, backed by a Java/Spring Boot API that proxies OpenWeatherMap and Google Places —
+so no API key is ever exposed to the browser.
 
-To run the full app locally:
+## Features
 
+- 🌍 **Location Search**: Intelligent location search powered by Google Places Autocomplete API
+- ☀️ **Real-time Weather Data**: Current weather conditions and a 5-day forecast from OpenWeather API
+- 🎨 **Modern UI**: Clean interface built with Material-UI components
+- 📱 **Responsive Design**: Works seamlessly across desktop and mobile devices
+- 🔍 **Smart Autocomplete**: Quick and accurate city search with Google Places integration
+- 🔒 **Server-side API keys**: Both third-party keys live only on the backend, never in the client bundle
+
+## Tech Stack
+
+**Frontend**
+- **React**: Frontend framework
+- **Axios**: HTTP client for API requests
+- **Material-UI (MUI)**: Component library for UI elements
+
+**Backend**
+- **Java 21 / Spring Boot 3**: REST API proxying OpenWeatherMap and Google Places
+- **Maven**: Build tool
+
+**Deployment**
+- **Docker / Docker Compose**: builds both services; nginx serves the production frontend
+  build and reverse-proxies `/api/*` to the backend internally
+
+## Prerequisites
+
+Running with Docker (recommended):
+- Docker and Docker Compose
+
+Running without Docker:
+- Node.js (v18 or higher) and npm
+- Java 21 and Maven
+- A Google Places API key and an OpenWeather API key (only needed on the backend, see below)
+
+## Installation
+
+1. Clone the repository:
 ```bash
-cd backend && mvn spring-boot:run   # starts the API on :8080
-npm start                            # in the project root, starts the frontend on :3000
+git clone https://github.com/Anqlem/weather-app-public.git
+cd weather-app-public
 ```
 
-## Deploying with Docker
-
-The repo ships a `docker-compose.yml` with two services: `backend` (Spring Boot, not
-published on any host port) and `frontend` (the production React build served by nginx,
-which reverse-proxies `/api/*` to `backend` internally — no CORS needed, no key ever
-reaches the browser).
+### Option A — Docker
 
 ```bash
 cp backend/.env.example backend/.env   # fill in OPENWEATHER_API_KEY and GOOGLE_MAPS_API_KEY
 ./deploy.sh
 ```
-
 or directly: `docker compose up -d --build`.
 
-By default the frontend is only published on `127.0.0.1:3000` (host-local). Set
-`APP_BIND=0.0.0.0` and/or `FRONTEND_PORT=<port>` in a root `.env` to expose it on your
-LAN/Tailscale network. Never port-forward it straight to the internet.
+The frontend is published on `127.0.0.1:3000` by default. Set `APP_BIND=0.0.0.0` and/or
+`FRONTEND_PORT=<port>` in a root `.env` to expose it on your LAN. Never port-forward it
+straight to the internet without additional protection (rate limiting, auth, etc.).
 
-# Getting Started with Create React App
+### Option B — Running locally without Docker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```bash
+npm install
+
+# backend: set your keys, then start the API on :8080
+cp backend/.env.example backend/.env   # fill in OPENWEATHER_API_KEY and GOOGLE_MAPS_API_KEY
+cd backend && mvn spring-boot:run
+
+# frontend: in a second terminal, from the project root
+npm start   # starts on :3000, calls the backend at REACT_APP_BACKEND_URL (.env, defaults to :8080)
+```
+
+The app will open at [http://localhost:3000](http://localhost:3000)
+
+See `backend/README.md` for more backend-specific details.
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start` - Runs the frontend in development mode
+- `npm test` - Launches the test runner
+- `npm run build` - Builds the frontend for production
 
-### `npm start`
+## Getting API Keys
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+These are only ever needed on the backend (`backend/.env`), never in the frontend.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### OpenWeather API
+1. Visit [OpenWeather](https://openweathermap.org/api)
+2. Sign up for a free account
+3. Generate an API key from your account dashboard
 
-### `npm test`
+### Google Places API
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the Places API
+4. Create credentials (API key)
+5. Since this key is now called server-side, restrict it by **IP address** (not HTTP referrer)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Design
 
-### `npm run build`
+This project implements the [TypeWeather Figma design](https://www.figma.com/community/file/1264768570663183670), providing a modern and user-friendly weather interface.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## License
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This project is open source and available under the MIT License.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Acknowledgments
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Weather data provided by [OpenWeather](https://openweathermap.org/)
+- Location services by [Google Places API](https://developers.google.com/maps/documentation/places/web-service)
+- UI design inspired by [TypeWeather Figma Community](https://www.figma.com/community)
