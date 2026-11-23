@@ -38,10 +38,7 @@ import loading from "../src/assets/images/icons/loading.svg";
 import { WeatherDetails } from "./components/WeatherDetails";
 import { WeatherNextDays } from "./components/WeatherNextDays";
 
-const api = {
-  key: process.env.REACT_APP_WEATHER_API_KEY,
-  base: "https://api.openweathermap.org/data/2.5/",
-};
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080/api";
 
 function App() {
   const [weather, setWeather] = useState({});
@@ -56,8 +53,8 @@ function App() {
   const [nextBackgroundImage, setNextBackgroundImage] = useState({});
 
   async function search(value) {
-    const url1 = `${api.base}weather?q=${value}&appid=${api.key}&units=metric`;
-    const url2 = `${api.base}forecast?q=${value}&appid=${api.key}&units=metric`;
+    const url1 = `${BACKEND_URL}/weather/current?city=${encodeURIComponent(value)}`;
+    const url2 = `${BACKEND_URL}/weather/forecast?city=${encodeURIComponent(value)}`;
 
     console.log(value);
 

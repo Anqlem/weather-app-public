@@ -1,0 +1,14 @@
+app:
+  cors:
+    allowed-origins: http://localhost:3000
+
+openweather:
+  api:
+    key: test-key
+    base-url: https://api.openweathermap.org/data/2.5
+
+google:
+  places:
+    api:
+      key: test-key
+      base-url: https://maps.googleapis.com/maps/api/place

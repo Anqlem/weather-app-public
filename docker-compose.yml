@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - path: ./backend/.env
+        required: false
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    # Not published on any host port: only the frontend's nginx reaches it,
+    # over the internal compose network.
+
+  frontend:
+    build:
+      context: .
+      args:
+        REACT_APP_BACKEND_URL: /api
+    restart: unless-stopped
+    # Default is localhost only. Set APP_BIND=0.0.0.0 in .env to open it to
+    # your LAN or Tailscale network. Never port-forward it to the internet.
+    ports: ["${APP_BIND:-127.0.0.1}:${FRONTEND_PORT:-3000}:80"]
+    depends_on:
+      - backend
