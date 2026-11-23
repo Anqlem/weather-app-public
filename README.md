@@ -5,6 +5,8 @@ locations worldwide. The app features a clean, intuitive interface based on the 
 Figma design, backed by a Java/Spring Boot API that proxies OpenWeatherMap and Google Places —
 so no API key is ever exposed to the browser.
 
+Deployed application - https://weather-mikhail.duckdns.org/
+
 ## Features
 
 - 🌍 **Location Search**: Intelligent location search powered by Google Places Autocomplete API
